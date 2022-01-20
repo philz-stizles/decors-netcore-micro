@@ -1,4 +1,4 @@
-﻿namespace Cart.Application.Models.Responses
+﻿namespace CartService.Application.Models.Responses
 {
     public class BaseResponse
     {

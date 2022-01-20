@@ -1,4 +1,4 @@
-﻿using Cart.Application.Exceptions;
+﻿using CartService.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Cart.API.Middlewares
+namespace CartService.API.Middlewares
 {
     public class GlobalExceptionMiddleware
     {

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using OrderService.Application.Behaviours;
 using System.Reflection;
 
 namespace OrderService.Application

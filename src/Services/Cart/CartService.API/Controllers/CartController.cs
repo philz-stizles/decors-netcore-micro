@@ -1,10 +1,11 @@
-﻿using Cart.Application.Contracts.Services;
-using Cart.Application.Models.Dtos;
+﻿using CartService.Application.Contracts.Services;
+using CartService.Application.Models.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
-namespace Cart.API.Controllers
+namespace CartService.API.Controllers
 {
     public class CartController: BaseController
     {
@@ -17,30 +18,42 @@ namespace Cart.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CartDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(CartDto))]
-        public async Task<IActionResult> SaveCart([FromBody]CartSaveDto dto)
+        public async Task<ActionResult<CartDto>> SaveCart([FromBody]CartSaveDto dto)
         {
 
-            var result = await _cartService.SaveCartAsync(dto);
+            var result = await _cartService.SaveAsync(dto);
             return Ok(result);
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{userName}", Name = "GetCart")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CartDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(CartDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(CartDto))]
-        public async Task<IActionResult> GetCart([FromRoute]string id)
+        public async Task<ActionResult<CartDto>> GetCart([FromRoute]string userName)
         {
-            var result = await _cartService.GetCartAsync(id);
-            return Ok(result ?? new CartDto(id));
+            var result = await _cartService.GetAsync(userName);
+            return Ok(result ?? new CartDto(userName));
         }
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCart(string id)
+        [HttpDelete("{userName}", Name = "DeleteCart")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        public async Task<IActionResult> DeleteCart(string userName)
         {
-            var result = await _cartService.DeleteCartAsync(id);
-            return Ok(result);
+            await _cartService.DeleteAsync(userName);
+            return Ok();
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Checkout([FromBody] CartCheckoutDto checkoutDto)
+        {
+
+            await _cartService.CheckoutAsync(checkoutDto);
+            return Accepted();
         }
     }
 }

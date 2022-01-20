@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cart.Application.Settings
+namespace CartService.Application.Settings
 {
     public class FileSettings
     {

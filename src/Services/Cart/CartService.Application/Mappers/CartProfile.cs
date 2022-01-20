@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
-using Cart.Application.Models.Dtos;
-using Cart.Application.Services.Cart;
-using Cart.Domain.Entities;
+using CartService.Application.Models.Dtos;
+using CartService.Domain.Entities;
 
-namespace Cart.Application.Mappers
+namespace CartService.Application.Mappers
 {
     public class CartProfile: Profile
     {
         public CartProfile()
         {
-            CreateMap<SaveCart.Command, Cart>();
-            CreateMap<Cart, CartDto>();
-            CreateMap<CartItemDto, CustomerCartItem>();
+            CreateMap<CartDto, Cart>().ReverseMap();
         }
     }
 }

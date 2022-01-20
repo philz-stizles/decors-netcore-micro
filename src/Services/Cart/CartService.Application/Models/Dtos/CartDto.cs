@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cart.Application.Models.Dtos
+namespace CartService.Application.Models.Dtos
 {
     public class CartSaveDto
     {

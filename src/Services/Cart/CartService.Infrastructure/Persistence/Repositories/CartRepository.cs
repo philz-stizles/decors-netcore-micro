@@ -1,41 +1,39 @@
-﻿using Decors.Application.Contracts.Repositories;
-using Decors.Domain.Entities;
-using System.Threading.Tasks;
-using StackExchange.Redis;
+﻿using System.Threading.Tasks;
 using System.Text.Json;
 using System;
+using Microsoft.Extensions.Caching.Distributed;
+using CartService.Domain.Entities;
+using CartService.Application.Contracts.Repositories;
+using Newtonsoft.Json;
 
-namespace Decors.Infrastructure.Persistence.Repositories
+namespace CartService.Infrastructure.Persistence.Repositories
 {
     public class CartRepository : ICartRepository
     {
-        private readonly IDatabase _redisDb;
+        private readonly IDistributedCache _redisCache;
 
-        public CartRepository(IConnectionMultiplexer redis)
+        public CartRepository(IDistributedCache cache)
         {
-            _redisDb = redis.GetDatabase();
+            _redisCache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
-        public async Task<bool> DeleteCartAsync(string cartId)
+        public async Task<Cart> GetAsync(string userName)
         {
-            return await _redisDb.KeyDeleteAsync(cartId);
-        }
-
-        public async Task<Cart> GetCartAsync(string cartId)
-        {
-            var data = await _redisDb.StringGetAsync(cartId);
-            return (data.IsNullOrEmpty) 
+            var cart = await _redisCache.GetStringAsync(userName);
+            return (String.IsNullOrEmpty(cart)) 
                 ? null 
-                : JsonSerializer.Deserialize<Cart>(data);
+                : JsonConvert.DeserializeObject<Cart>(cart);
         }
 
-        public async Task<Cart> SaveCartAsync(Cart cart)
+        public async Task<Cart> SaveAsync(Cart cart)
         {
-            var created = await _redisDb.StringSetAsync(cart.Id, JsonSerializer.Serialize(cart), 
-                TimeSpan.FromDays(15));
-            return (!created) 
-                ? null 
-                : await GetCartAsync(cart.Id);
+            await _redisCache.SetStringAsync(cart.UserName, JsonConvert.SerializeObject(cart));
+            return await GetAsync(cart.UserName);
+        }
+
+        public async Task DeleteAsync(string userName)
+        {
+            await _redisCache.RemoveAsync(userName);
         }
     }
 }

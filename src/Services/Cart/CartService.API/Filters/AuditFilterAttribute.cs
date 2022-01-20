@@ -1,7 +1,4 @@
-﻿using Cart.Application.Contracts.Repositories;
-using Cart.Application.Contracts.Services;
-using Cart.Domain.Entities;
-using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -99,3 +96,4 @@ namespace Cart.API.Filters
         }
     }
 }
+*/

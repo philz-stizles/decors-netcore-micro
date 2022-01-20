@@ -1,26 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using CatalogService.Application.Models.Dtos;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Handlers.Orders.Queries;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace OrderService.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class OrdersController : ControllerBase
+    [Route("api/v1/[controller]")]
+    public class OrderController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly IMediator _mediator;
 
-        private readonly ILogger<OrdersController> _logger;
-
-        public OrdersController(ILogger<OrdersController> logger)
+        public OrderController(IMediator mediator)
         {
-            _logger = logger;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
+
+        [HttpGet("{userName}", Name = "GetOrder")]
+        [ProducesResponseType(typeof(IEnumerable<OrderDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserName(string userName)
+        {
+            var query = new GetOrderListQuery(userName);
+            var orders = await _mediator.Send(query);
+            return Ok(orders);
+        }
+
+        // testing purpose
+        /*[HttpPost(Name = "CheckoutOrder")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<int>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut(Name = "UpdateOrder")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}", Name = "DeleteOrder")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteOrder(int id)
+        {
+            var command = new DeleteOrderCommand() { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
+        }*/
     }
 }

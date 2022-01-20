@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Cart.API.Controllers
+
+namespace CartService.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]

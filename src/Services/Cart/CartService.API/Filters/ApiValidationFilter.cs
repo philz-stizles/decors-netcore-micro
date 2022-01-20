@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 
-namespace Cart.API.Filters
+namespace CartService.API.Filters
 {
     public class ApiValidationFilter : IActionFilter
     {

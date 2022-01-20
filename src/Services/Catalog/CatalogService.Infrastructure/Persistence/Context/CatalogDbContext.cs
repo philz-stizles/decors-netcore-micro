@@ -14,7 +14,7 @@ namespace CatalogService.Infrastructure.Persistence.Context
             var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
             Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
-            CatalogSeeder.SeedData(Products);
+            CatalogSeeder.Seed(Products);
         }
 
         public IMongoCollection<Product> Products { get; }

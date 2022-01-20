@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Cart.Application.Exceptions
+namespace CartService.Application.Exceptions
 {
     public class RestException : Exception
     {

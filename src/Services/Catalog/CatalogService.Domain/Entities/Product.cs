@@ -10,11 +10,22 @@ namespace CatalogService.Domain.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        [BsonElement("name")]
         public string Name { get; set; }
+
+        [BsonElement("slug")]
         public string Slug { get; set; }
+
+        [BsonElement("summary")]
+        public string Summary { get; set; }
+
+        [BsonElement("description")]
         public string Description { get; set; }
-        public string CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+
+        [BsonElement("category")]
+        public string Category { get; set; }
+        /*public string CategoryId { get; set; }
+        public virtual Category Category { get; set; }*/
         public bool Shipping{ get; set; }
         public int VendorId { get; set; }
         public decimal Price { get; set; }
