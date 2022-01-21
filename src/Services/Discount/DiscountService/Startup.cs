@@ -1,11 +1,14 @@
+using CouponService.API.Repositories;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace CouponService
+namespace CouponService.API
 {
     public class Startup
     {
@@ -19,7 +22,7 @@ namespace CouponService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDiscountRepository, DiscountRepository>();
+            services.AddScoped<ICouponRepository,CouponRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

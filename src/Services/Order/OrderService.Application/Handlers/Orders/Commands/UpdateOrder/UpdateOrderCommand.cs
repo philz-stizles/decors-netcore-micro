@@ -1,6 +1,8 @@
-﻿namespace CatalogService.Application.Models.Dtos
+﻿using MediatR;
+
+namespace OrderService.Application.Handlers.Orders.Commands.UpdateOrder
 {
-    public class OrderDto
+    public class UpdateOrderCommand: IRequest
     {
         public int Id { get; set; }
         public string UserName { get; set; }

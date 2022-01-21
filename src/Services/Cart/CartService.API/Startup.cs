@@ -1,5 +1,6 @@
 using CartService.Application.Contracts.Repositories;
 using CartService.Application.Contracts.Services;
+using CartService.Application.Services;
 using CartService.Infrastructure.Persistence.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -46,7 +47,7 @@ namespace CartService.API
 
             // General Configuration
             services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartService, CartingService>();
             services.AddAutoMapper(typeof(Startup));
 
             // Grpc Configuration

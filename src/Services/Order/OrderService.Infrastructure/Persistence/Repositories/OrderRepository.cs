@@ -1,7 +1,9 @@
-﻿using OrderService.Application.Contracts.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderService.Application.Contracts.Repositories;
 using OrderService.Domain.Entities;
 using OrderService.Infrastructure.Persistence.Context;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OrderService.Infrastructure.Persistence.Repositories
@@ -12,9 +14,12 @@ namespace OrderService.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task<IEnumerable<Order>> GetOrdersByUserName(string userName)
+        public async Task<IEnumerable<Order>> GetOrdersByUserName(string userName)
         {
-            throw new System.NotImplementedException();
+            var orderList = await _dbContext.Orders
+                                .Where(o => o.UserName == userName)
+                                .ToListAsync();
+            return orderList;
         }
     }
 }

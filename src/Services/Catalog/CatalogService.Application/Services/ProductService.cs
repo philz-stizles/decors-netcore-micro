@@ -35,7 +35,7 @@ namespace CatalogService.Application.Services
             // Map product dto to product entity.
             var newProduct = _mapper.Map<Product>(request);
 
-            newProduct.Category = category;
+            // newProduct.Category = category;
 
             var product = await _productRepository.AddAsync(newProduct);
 

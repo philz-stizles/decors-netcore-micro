@@ -17,7 +17,7 @@ namespace CartService.Application.Models.Dtos
     {
         public CartDto(string id)
         {
-            Id = id
+            Id = id;
         }
 
         public string Id { get; set; } // This will be generated from the client-side

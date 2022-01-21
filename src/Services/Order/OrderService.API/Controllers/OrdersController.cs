@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Handlers.Orders.Commands.DeleteOrder;
+using OrderService.Application.Handlers.Orders.Commands.UpdateOrder;
 using OrderService.Application.Handlers.Orders.Queries;
 using System;
 using System.Collections.Generic;
@@ -37,7 +39,7 @@ namespace OrderService.API.Controllers
         {
             var result = await _mediator.Send(command);
             return Ok(result);
-        }
+        }*/
 
         [HttpPut(Name = "UpdateOrder")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -58,6 +60,6 @@ namespace OrderService.API.Controllers
             var command = new DeleteOrderCommand() { Id = id };
             await _mediator.Send(command);
             return NoContent();
-        }*/
+        }
     }
 }

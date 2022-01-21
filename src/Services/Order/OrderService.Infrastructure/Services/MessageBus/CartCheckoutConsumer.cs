@@ -7,15 +7,16 @@ using OrderService.Application.Handlers.Orders.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace OrderService.API.EventBus
+namespace OrderService.Infrastructure.Services.MessageBus
 {
-    public class CartCheckoutConsumer : IConsumer<CartCheckoutEvent>
+    public class CartCheckoutConsumer: IConsumer<CartCheckoutEvent>
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly ILogger<CartCheckoutConsumer> _logger;
 
-        public CartCheckoutConsumer(IMediator mediator, IMapper mapper, ILogger<CartCheckoutConsumer> logger)
+        public CartCheckoutConsumer(IMediator mediator, IMapper mapper, 
+            ILogger<CartCheckoutConsumer> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

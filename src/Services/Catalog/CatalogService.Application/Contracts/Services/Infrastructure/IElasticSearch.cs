@@ -1,4 +1,4 @@
-﻿using Auth.Domain.Entities;
+﻿using CatalogService.Domain.Entities;
 using System.Threading.Tasks;
 
 namespace Auth.Application.Contracts.Services

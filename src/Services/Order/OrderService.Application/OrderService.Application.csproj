@@ -13,11 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappers\Profiles\" />
+    <ProjectReference Include="..\..\..\Commons\Decors.EventBus\Decors.EventBus.csproj" />
+    <ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj" />
+    <Folder Include="Models\Requests\" />
   </ItemGroup>
 
 </Project>

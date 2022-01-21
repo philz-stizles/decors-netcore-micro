@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace CartService.Application.Services
 {
-    public class CartService : ICartService
+    public class CartingService : ICartService
     {
         private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public CartService(ICartRepository cartRepository, IMapper mapper,
+        public CartingService(ICartRepository cartRepository, IMapper mapper,
             IPublishEndpoint publishEndpoint)
         {
             _cartRepository = cartRepository;

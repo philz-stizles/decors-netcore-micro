@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CatalogService.Application.Models.Dtos;
-using OrderService.Domain.Entities;
+using Decors.EventBus.Events;
+using OrderService.Application.Handlers.Orders.Commands;
 
 namespace OrderService.Application.Mappers
 {
@@ -8,7 +8,7 @@ namespace OrderService.Application.Mappers
     {
         public OrderProfile()
         {
-            CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<CheckoutOrderCommand, CartCheckoutEvent>().ReverseMap();
         }
     }
 }
